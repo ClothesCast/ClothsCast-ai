@@ -43,7 +43,6 @@ class RecommendRequest(BaseModel):
     location: Location
     ownedClothes: OwnedClothes
     weather: Weather
-    weather -> list -> main -> temp
 
 @app.post("/recommend")
 def recommend(request: RecommendRequest):

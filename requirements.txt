@@ -1,5 +1,8 @@
 python-dotenv 
 openai 
 chromadb 
-langchain flask "fastapi[standard]" 
--U langchain-community
+langchain
+flask 
+fastapi[standard]
+langchain-community
+pysqlite3-binary
