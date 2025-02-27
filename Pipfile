@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+python-dotenv = "*"
+openai = "*"
+chromadb = "*"
+langchain = "*"
+flask = "*"
+fastapi = {extras = ["standard"], version = "*"}
+langchain-community = "*"
+pysqlite3-binary = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.12"

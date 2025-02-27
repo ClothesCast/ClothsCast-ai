@@ -37,6 +37,11 @@ class OwnedClothes(BaseModel):
 
 class Weather(BaseModel):
     condition: str
+
+class Temp(BaseModel):
+    list: list
+    main: dict
+    temp: float
     
 
 class RecommendRequest(BaseModel):
@@ -44,6 +49,7 @@ class RecommendRequest(BaseModel):
     location: Location
     ownedClothes: OwnedClothes
     weather: Weather
+    temp: Temp
 
 @app.post("/recommend")
 def recommend(request: RecommendRequest):
@@ -56,7 +62,7 @@ def recommend(request: RecommendRequest):
         "location": request.location.dict(),
         "ownedClothes": request.ownedClothes.dict(),
         "weather": [{"description": request.weather.condition}],
-        "main": {"temp": request.main}
+        "temp": {"temp": request.weather.list.main.temp}
     }
     
     # 추천 결과 생성
