@@ -22,7 +22,7 @@ def predict():
       - ownedClothes: 상, 하, 아우터, 신발 정보 (불리언 값)
       - style: 사용자 선호 스타일
       - location: { "latitude": 숫자, "longitude": 숫자 }
-      - main: { "temp": 숫자, ... }
+      - weather.main: { "temp": 숫자, ... }
       - weather: [ { "description": 문자열, ... } ]
       
     이 정보들은 실시간으로 변경되므로, 매 요청마다 최신 정보를 사용합니다.

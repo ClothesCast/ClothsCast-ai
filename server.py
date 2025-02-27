@@ -36,13 +36,14 @@ class OwnedClothes(BaseModel):
 
 class Weather(BaseModel):
     condition: str
+    
 
 class RecommendRequest(BaseModel):
     style: str
     location: Location
     ownedClothes: OwnedClothes
     weather: Weather
-    main: int
+    weather -> list -> main -> temp
 
 @app.post("/recommend")
 def recommend(request: RecommendRequest):
