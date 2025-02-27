@@ -36,12 +36,3 @@ def predict():
         return jsonify({'result': recommendation})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-    
-# import json
-
-# # JSON 파일 열기 (파일 경로를 원하는 경로로 수정)
-# with open('user_data', 'r', encoding='utf-8') as file:
-#     data = json.load(file)
-
-# # 데이터 보기 쉽게 출력 (indent를 사용하여 계층 구조를 들여쓰기)
-# print(json.dumps(data, indent=4, ensure_ascii=False))

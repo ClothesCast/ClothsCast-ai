@@ -3,10 +3,11 @@ from langchain.chains import LLMChain
 from langchain.chat_models import ChatOpenAI
 from config import OPENAI_API_KEY
 
-import json
 # ------------------------------------------------------------------------------
-# 4. LangChain을 활용한 GPT API 호출 및 최종 스타일링 추천 생성 (동적 변수 전달)
+# LangChain을 활용한 GPT API 호출 및 최종 스타일링 추천 생성 (동적 변수 전달)
 # ------------------------------------------------------------------------------
+
+
 def generate_styling_recommendation_with_gpt(user_data: dict) -> str:
     """
     사용자 데이터를 기반으로 LangChain을 활용해 GPT에게 프롬프트를 전달하여
@@ -20,27 +21,6 @@ def generate_styling_recommendation_with_gpt(user_data: dict) -> str:
     longitude = location_data.get("longitude", 0)
     location_str = "좌표 기반 위치 정보"  # [수정됨] 실제 위치 변환 로직 추가 가능
 
-    # temperature = user_data.get("main", {}).get("temp", {})
-    # print('t', temperature)
-    # temperature = None
-    # for item in user_data:
-    #     if item.get("dt_txt") == "2025-02-27 09:00:00":
-    #         temperature = item.get("main", {}).get("temp", {})
-    #         break
-    # print(temperature)
-
-
-    # temperature = None
-    # for item in user_data:
-    #     # item이 문자열이면 JSON 파싱
-    #     if isinstance(item, str):
-    #         try:
-    #             item = json.loads(item)
-    #         except json.JSONDecodeError:
-    #             continue  # JSON 파싱에 실패하면 건너뜁니다.
-    #     if item.get("dt_txt") == "2025-02-27 09:00:00":
-    #         temperature = item.get("main", {}).get("temp")
-    #         break
     temperature = user_data.get("temp", {})
     print(temperature)
     weather_info = user_data.get("weather", [{}])[0]
@@ -149,5 +129,3 @@ def generate_styling_recommendation_with_gpt(user_data: dict) -> str:
         recommendation = f"GPT 호출 중 에러 발생: {e}"
     
     return recommendation
-
-

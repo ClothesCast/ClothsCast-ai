@@ -5,8 +5,9 @@ from langchain_community.embeddings import OpenAIEmbeddings
 from config import OPENAI_API_KEY, SCRIPT_DIR
 
 # ------------------------------------------------------------------------------
-# 2. Chroma 벡터 데이터베이스 설정 및 PDF 텍스트 벡터화
+# Chroma 벡터 데이터베이스 설정 및 PDF 텍스트 벡터화
 # ------------------------------------------------------------------------------
+
 def setup_chroma_db():
     """
     Chroma 벡터 데이터베이스를 persistent client를 사용해 설정합니다.
