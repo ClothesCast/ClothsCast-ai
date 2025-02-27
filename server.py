@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from fastapi.staticfiles import StaticFiles
 from fastapi import FastAPI
 import clothcast_model
+# from setting import sqllite
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")

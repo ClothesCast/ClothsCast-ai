@@ -6,3 +6,4 @@ flask
 fastapi[standard]
 langchain-community
 pysqlite3-binary
+
