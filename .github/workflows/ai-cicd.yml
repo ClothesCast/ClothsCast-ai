@@ -1,0 +1,43 @@
+name: Deploy clothcast-ai
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
+      - name: Build and Push Docker Image
+        run: |
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/clothcast_ai:latest .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/clothcast_ai:latest
+
+      - name: Deploy on AWS EC2
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.DEV_SERVER_HOST }}
+          username: ${{ secrets.DEV_SERVER_USER }}
+          key: ${{ secrets.DEV_SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/ubuntu/app
+
+            # .env 파일 자동 생성 
+            echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" > .env
+
+            # 기존 컨테이너 중지 및 삭제 
+            docker stop clothcast_ai || true
+            docker rm clothcast_ai || true
+            docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/clothcast_ai:latest || true
+
+            # 최신 이미지 Pull 후 실행
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/clothcast_ai:latest
+            docker run -d --name clothcast_ai -p 8000:8000 --env-file .env ${{ secrets.DOCKERHUB_USERNAME }}/clothcast_ai:latest
