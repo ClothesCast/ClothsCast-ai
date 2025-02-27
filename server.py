@@ -2,7 +2,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.staticfiles import StaticFiles
-from fastapi import FastAPI, Query
+from fastapi import FastAPI
 import clothcast_model
 
 app = FastAPI()
@@ -55,7 +55,7 @@ def recommend(request: RecommendRequest):
         "location": request.location.dict(),
         "ownedClothes": request.ownedClothes.dict(),
         "weather": [{"description": request.weather.condition}],
-        "main": {"temp": request.temp}
+        "main": {"temp": request.main}
     }
     
     # 추천 결과 생성
